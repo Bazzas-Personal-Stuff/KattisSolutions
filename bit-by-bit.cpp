@@ -15,7 +15,7 @@ void _or(int idx1, int idx2) {
     if (bits[idx1] == '1' || bits[idx2] == '1') {
         bits[idx1] = '1';
     } else if (bits[idx1] == '?' || bits[idx2] == '?') {
-        bits[idx1] == '?';
+        bits[idx1] = '?';
     } else {
         bits[idx1] = '0';
     }
@@ -31,7 +31,7 @@ void _or(int idx1, int idx2) {
 
 void _and(int idx1, int idx2) {
     if (bits[idx1] == '1' && bits[idx2] == '1') {
-        bits[idx1] == '1';
+        bits[idx1] = '1';
     } else if (bits[idx1] == '0' || bits[idx2] == '0') {
         bits[idx1] = '0';
     } else {
@@ -62,7 +62,7 @@ int main() {
     int instructionCount;
     while (true) {
         cin >> instructionCount;
-        if (instructionCount == 0 || cin.eof())
+        if (instructionCount == 0)
             break;
         for (int i = 0; i < 32; i++) {
             bits[i] = '?';
