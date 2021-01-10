@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-vector<char> bits;
+char bits[32];
 
 void _clear(int idx) { bits[idx] = '0'; }
 
@@ -56,9 +56,8 @@ int main() {
         if (instructionCount == 0)
             return 0;
 
-        bits.clear();
         for (int i = 0; i < 32; i++) {
-            bits.push_back('?');
+            bits[i] = '?';
         }
         for (int i = 0; i < instructionCount; i++) {
             string thisInstruction = "";
