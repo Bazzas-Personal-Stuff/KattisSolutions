@@ -2,78 +2,64 @@
 
 #include <algorithm>
 #include <iostream>
+#include <map>
+#include <queue>
 #include <set>
 #include <vector>
 
 using namespace std;
 
-struct quest {
-    int e;
-    int g;
-};
-
-bool egComparator(quest a, quest b) {
-    if (a.e == b.e) {
-        return a.g > b.g;
-    } else
-        return a.e > b.e;
-};
-int main() {
+int main()
+{
     int count;
+    map<int, priority_queue<int>> energyMap;
+
     cin >> count;
 
-    // vector<quest> entries;
-    set<quest, decltype(egComparator) *> entries(egComparator);
-
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
 
         string cmd;
         cin >> cmd;
-        if (cmd == "add") {
-            int a, b;
-            cin >> a >> b;
-            quest temp;
-            temp.e = a;
-            temp.g = b;
-            entries.insert(temp);
-        } else {
-            // query
-            // sort(entries.begin(), entries.end(), egComparator);
-            int energy;
-            int thisGold = 0;
-            cin >> energy;
-
-            // print out quest database every query
-            /*
-            cout << "Current quest database: " << '\n';
-            for (int j = 0; j < entries.size(); j++) {
-                quest q = entries[j];
-                cout << "E: " << q.e << "\tG: " << q.g << '\n';
+        if (cmd == "add")
+        {
+            int energy, gold;
+            cin >> energy >> gold;
+            if (energyMap.count(energy) == 0)
+            {
+                energyMap[energy] = priority_queue<int>();
             }
-            cout << "Querying with " << energy << " energy:" << '\n';
-            */
-            /*
-             for (int j = 0; j < entries.size(); j++) {
-                 if (entries[j].e <= energy) {
-                     thisGold += entries[j].g;
-                     energy -= entries[j].e;
-                     entries.erase(entries.begin() + j);
-                     j--;
-                 }
-             }
-             */
-            set<quest>::iterator it;
-            set<quest>::iterator end = entries.end();
-            for (it = entries.begin(); it != end; it++) {
-                quest q = *it;
-                if (q.e <= energy) {
-                    thisGold += q.g;
-                    energy -= q.e;
-                    // entries.erase(it);
-                    // it--;
-                    end = entries.end();
+            energyMap[energy].push(gold);
+        }
+        else
+        {
+            // query
+
+            int energy;
+            long int thisGold = 0;
+            cin >> energy;
+            map<int, priority_queue<int>>::reverse_iterator it, end;
+            for (it = energyMap.rbegin(); it != energyMap.rend();)
+            {
+                bool hasErased = false;
+                while (it->first <= energy && !it->second.empty())
+                {
+                    thisGold += it->second.top();
+                    energy -= it->first;
+                    it->second.pop();
+                    if (it->second.empty())
+                    {
+                        energyMap.erase(next(it).base());
+                        // hasErased = true;
+                        break;
+                    }
+                }
+                if (!hasErased)
+                {
+                    ++it;
                 }
             }
+
             cout << thisGold << "\n";
         }
     }
