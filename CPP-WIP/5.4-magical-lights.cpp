@@ -1,5 +1,5 @@
 // magical colour = number of nodes with colour is odd (within subtree)
-// when K == 0, print magical colours in subtree of X (parent node)
+// when k == 0, print magical colours in subtree of X (parent node)
 
 #include <bitset>
 #include <iostream>
@@ -15,9 +15,10 @@ class node {
     int baseColour;
 
     void flipColourParent(int colour1, int colour2) {
+
         magicColours.flip(colour1);
         magicColours.flip(colour2);
-        if (parent != NULL) {
+        if (parent != NULL && parent->magicColours.any()) {
             parent->flipColourParent(colour1, colour2);
         }
     }
@@ -26,16 +27,19 @@ class node {
         flipColourParent(baseColour, colour);
         baseColour = colour;
     }
-    void initializeChildren() {
-        for (node *child : children) {
-            child->initializeChildren();
-            magicColours ^= child->magicColours;
+    void calculateChildren() {
+        if (magicColours.none()) {
+            magicColours[baseColour] = 1;
+            for (node *child : children) {
+                child->calculateChildren();
+                magicColours ^= child->magicColours;
+            }
         }
     }
 };
 
 int main() {
-    int n, q, K, X;
+    int n, q, k, x;
     cin >> n >> q;
     vector<node> allNodes(n);
     // initialize colours
@@ -43,8 +47,7 @@ int main() {
         int colour;
         cin >> colour;
         colour--;
-        allNodes[i].magicColours[colour] = 1;
-        allNodes[i].baseColour           = colour;
+        allNodes[i].baseColour = colour;
     }
 
     // get parents of node i
@@ -52,21 +55,20 @@ int main() {
     for (int i = 0; i < n - 1; i++) {
         int p;
         cin >> p;
-        allNodes[i + 1].parent = &allNodes[p - 1];
-        allNodes[p - 1].children.push_back(&allNodes[i + 1]);
+        p--;
+        allNodes[i + 1].parent = &allNodes[p];
+        allNodes[p].children.push_back(&allNodes[i + 1]);
     }
 
-    allNodes[0].initializeChildren();
-
     for (int i = 0; i < q; i++) {
-        cin >> K >> X;
-        X--;
-        if (K == 0) {
-            cout << allNodes[X].magicColours.count() << '\n';
-        } // query
-        else {
-            K--;
-            allNodes[X].setColour(K);
-        } // set colour
+        cin >> k >> x;
+        x--;
+        if (k == 0) { // query
+            allNodes[x].calculateChildren();
+            cout << allNodes[x].magicColours.count() << '\n';
+        } else { // set
+            k--;
+            allNodes[x].setColour(k);
+        }
     }
 }
