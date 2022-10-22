@@ -1,4 +1,4 @@
-// UNFINISHED
+// https://open.kattis.com/problems/bitbybit
 
 #include <iostream>
 #include <vector>

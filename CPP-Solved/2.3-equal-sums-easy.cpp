@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/equalsumseasy
+
 #include <iostream>
 #include <map>
 #include <math.h>

@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/anotherbrick
+
 #include <iostream>
 #include <vector>
 using namespace std;

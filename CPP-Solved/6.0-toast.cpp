@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/toast
+
 /*
     maximum table radius is when chord with angle (clinksPerPerson * Θ) has length 2*d
     minimum table radius is when chord with angle ((clinksPerPerson+1) * Θ) has length 2*d

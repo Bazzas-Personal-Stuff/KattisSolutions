@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/almostperfect
+
 #include <cmath>
 #include <iostream>
 

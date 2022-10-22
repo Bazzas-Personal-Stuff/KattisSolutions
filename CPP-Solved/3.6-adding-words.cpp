@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/addingwords
+
 #include <iostream>
 #include <map>
 using namespace std;

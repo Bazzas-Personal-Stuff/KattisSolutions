@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/textureanalysis
+
 #include <iostream>
 #include <sstream>
 #include <string>

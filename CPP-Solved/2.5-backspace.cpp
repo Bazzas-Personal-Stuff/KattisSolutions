@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/backspace
+
 #include <iostream>
 #include <vector>
 using namespace std;

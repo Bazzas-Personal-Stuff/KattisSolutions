@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/10kindsofpeople
+
 #include <iostream>
 #include <map>
 #include <set>

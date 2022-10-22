@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/teque
+
 /*
 1. push_back x: insert the element 𝑥 into the back of the teque.
 2. push_front x: insert the element 𝑥 into the front of the teque.

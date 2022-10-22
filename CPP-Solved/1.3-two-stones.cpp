@@ -1,3 +1,5 @@
+// https://open.kattis.com/problems/twostones
+
 #include <iostream>
 using namespace std;
 

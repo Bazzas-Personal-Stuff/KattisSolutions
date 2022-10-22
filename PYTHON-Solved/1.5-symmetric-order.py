@@ -1,3 +1,5 @@
+# https://open.kattis.com/problems/symmetricorder
+
 import sys
 
 n = int(input())
